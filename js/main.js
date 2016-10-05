@@ -1,6 +1,6 @@
 function render(file) {
   var request = new XMLHttpRequest();
-  request.open('GET', file, true);
+  request.open('GET', window.location.pathname + file, true);
 
   request.onload = function() {
     marked.setOptions({
@@ -14,3 +14,13 @@ function render(file) {
 
   request.send();
 }
+
+function getPage() {
+  if (window.location.hash === '') {
+    render('readme.md');
+  } else {
+    render(window.location.hash.replace('#', '') + '.md');
+  }
+}
+
+window.addEventListener('hashchange', getPage, false);

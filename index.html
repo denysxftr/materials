@@ -2,15 +2,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Learning materials</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-light.min.css">
+  <link rel="stylesheet" href="/css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
   <script src="js/vendor/marked.js" charset="utf-8"></script>
   <script src="js/main.js" charset="utf-8"></script>
 </head>
 <body>
-  <div class="js-content"></div>
+  <div class="js-content content"></div>
   <script type="text/javascript">
-    render('/materials/readme.md')
+    getPage();
   </script>
 </body>
 </html>

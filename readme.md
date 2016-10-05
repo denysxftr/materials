@@ -1,14 +1,3 @@
-# Test markdown file
-## test 2
-### test 3
-```ruby
-def func(text)
-  puts "Some text: #{text}"
-end
-```
+# LEARNING MATERIALS
 
-Bla bla Bla
-
----
-
-**sdfsdfsddfds** 
+[Introduction](#introduction)
