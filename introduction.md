@@ -78,6 +78,12 @@ Complex(2, 3) #=> (2+3i)
 (1 + 1).to_f #=> 2.0
 ```
 
+### One more thing about objects
+
+```ruby
+1.+(2)
+```
+
 ### Arithmetic operators
 
 ```ruby
@@ -157,6 +163,8 @@ a & b #=> [3]
 a - b #=> [1, 2]
 a + b #=> [1, 2, 3, 3, 4, 5]
 a * 2 #=> [1, 2, 3, 1, 2, 3]
+
+[1,2,3].|([3,4,5,6]) #=> [1, 2, 3, 4, 5, 6]
 ```
 
 ## Set
@@ -215,4 +223,254 @@ a = { outer: { nested: :value } }
 a[:inner] && a[:inner][:nested] #=> nil
 a.dig(:inner, :nested) # => nil
 a.dig(:outer, :nested) #=> :value
+```
+
+## Time
+
+```ruby
+a = Time.new #=> 2015-07-05 12:07:05 +0300
+a.year #=> 2015
+a.month #=> 7
+a.sec #=> 5
+a.strftime('%Y-%m-%d %H:%M:%S') #=> "2015-07-05 12:07:05"
+```
+
+## IF
+
+```ruby
+if a == 4
+  a = 7
+end
+if a == 4 then a = 7 end
+a = 7 if a == 4
+if a != 4
+  a = 7
+end
+unless a == 4
+  a = 7
+end
+a = 7 unless a == 4
+
+puts('hi!') if a > 0 # 'hi!'
+```
+
+## if else
+
+```ruby
+a = 1
+res = if a < 5
+        "#{a} less than 5"
+      elsif a > 5
+        "#{a} greater than 5"
+      else
+        "#{a} equals 5"
+      end
+res #=> "1 less than 5"
+```
+
+```ruby
+true ? 't' : 'f'  #=> "t"
+false ? 't' : 'f' #=> "f"
+```
+
+## About false
+```ruby
+true == true
+0 == true
+'' == true
+nil == false
+false == false
+```
+---
+```ruby
+if a
+  # do this
+elsif !a
+  # do that
+else
+  # wat?
+end
+```
+---
+```ruby
+0/0 # raises ZeroDivisionError
+0/0.0 # => NaN (instance of class Float)
+NaN # => NameError: uninitialized constant NaN
+0/0.0 == false # => false
+0/0.0 == true # => false
+```
+---
+```ruby
+a = 0/0.0
+if a
+  puts 'a is true'
+elsif !a
+  puts 'a is false'
+else
+  puts 'wat?'
+end
+```
+
+## or, and
+```ruby
+nil && 99   #=> nil
+false && 99 #=> false
+"cat" && 99 #=> 99
+nil || 99   #=> 99
+false || 99 #=> 99
+"cat" || 99 #=> "cat"
+```
+
+## ||=
+
+```ruby
+@a #=> nil
+@a ||= 5
+@a #=> 5
+@a ||= 6
+@a #=> 5
+```
+
+## case
+```ruby
+a = 1
+r = case
+      when a < 5
+        "#{a} less than 5"
+      when a > 5
+        "#{a} greater than 5"
+      else
+        "#{a} equals 5"
+    end
+r #=> "1 less than 5"
+```
+
+## loop
+```ruby
+i = 0
+loop do
+  i += 1
+  next if i == 5
+  print "#{i} "
+  break if i == 10
+end
+#=> 1 2 3 4 6 7 8 9 10
+```
+
+## while, for
+```ruby
+i = 1
+while i < 11
+  print "#{i} "
+  i += 1
+end
+#=> 1 2 3 4 6 7 8 9 10
+for i in 1..10
+  print "#{i} "
+end
+#=> 1 2 3 4 6 7 8 9 10
+```
+
+## Iterators
+```ruby
+a = (1..10)
+a.each { |element| puts element }
+a.map { |x| x * 2 }
+#=> [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+a.map(&:to_s)
+#=> ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+10.times { |i| puts i }
+```
+
+## Methods
+```ruby
+def this_is_one
+  'one'
+end
+this_is_one #=> 'one'
+
+def with_arg(arg)
+  puts arg
+end
+with_arg(2) # '2'
+
+def with_return
+  return 'one'
+  'two'
+end
+with_return #=> 'one'
+```
+
+## Methods args
+```ruby
+def many_args(arg1, *rest)
+  "arg1=#{arg1}  rest=#{rest.inspect}"
+end
+many_args(1,2,3,4,5) #=> "arg1=1  rest=[2, 3, 4, 5]"
+def split_apart(first, *split, last)
+  "first: #{first.inspect}, split: #{split.inspect}, last: #{last.inspect}"
+end
+split_apart(1, 2) #=> "first: 1, split: [], last: 2"
+split_apart(1, 2, 3) #=> "first: 1, split: [2], last: 3"
+split_apart(1, 2, 3, 4) #=> "first: 1, split: [2, 3], last: 4"
+```
+
+## Methods and blocks
+
+```ruby
+(1..10).map { |x| x * 2 }
+def with_doubled(a)
+  yield(a*2)
+end
+with_doubled(2) { |val| puts val } #=> 4
+def try
+  if block_given?
+    yield
+  else
+    "no block"
+  end
+end
+try #=> "no block"
+try { "hello" } #=> "hello"
+try do "hello" end #=> "hello"
+```
+
+## Proc and lambda
+```ruby
+# proc
+square = Proc.new do |n|
+  n ** 2
+end
+square.call(2) #=> 4
+
+# lambda
+bo = lambda { |param| "You called me with #{param}" }
+bo.call(99) #=> "You called me with 99"
+
+# difference
+def proc_return
+  Proc.new { return "Proc.new" }.call
+  return "proc_return return"
+end
+def lambda_return
+  lambda { return "lambda" }.call
+  return "lambda_return return"
+end
+proc_return #=> "Proc.new"
+lambda_return #=> "lambda_return return"
+```
+
+## Call-by-reference
+
+```ruby
+a = [1,2,3]
+b = a
+b #=> [1, 2, 3]
+a[1] = 100
+b #=> [1, 100, 3]
+a = [1,2,3]
+b = a.clone
+a[1] = 1000
+b #=> [1, 2, 3]
+a #=> [1, 1000, 3]
 ```
