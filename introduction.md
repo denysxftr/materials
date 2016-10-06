@@ -29,7 +29,7 @@ irb(main):002:0>
 # local
 a = 5
 a #=> 5
-# inctance
+# instance
 @a #=> nil
 @a = 5
 @a #=> 5
@@ -40,9 +40,7 @@ $a #=> 5
 # constant
 A = 'constant'
 A #=> "constant"
-A = 'another'
-(irb):98: warning: already initialized constant A
-(irb):96: warning: previous definition of A was here
+A = 'another' # Warning: already initialized constant A
 A #=> "another"
 ```
 
@@ -107,6 +105,68 @@ a %= 3  #=> 2
 a **= 2 #=> 4
 ```
 
+### Floating point numbers precision
+```ruby
+10 / 3.0 # => 3.33333333333
+```
+
+---
+```ruby
+0.1 + 0.2 #=> 0.30000000000000004
+```
+---
+**IEEE 754**
+```ruby
+0 01111101 00110011001100110011010 # 0.3
+```
+---
+```ruby
+1.23 * (10 ** 2)
+```
+---
+```ruby
+.123 * (10 ** 0)
+1.23 * (10 ** 0)
+123 * (10 ** 0)
+1.23 * (10 ** 2)
+999 * (10 ** 9)
+```
+---
+```ruby
+10000000000.0 + 0.00001 # => 10000000000.00001
+10000000000.0 + 0.0000001 # => 10000000000.0
+```
+---
+```ruby
+a = 1000000
+while a < 100000000000000000000 do
+  a += 0.000000001
+end
+```
+---
+```ruby
+100000000.0.next_float # => 100000000.00000001
+```
+---
+[ruby source](https://github.com/ruby/ruby/blob/59b089bd0902ee5de3b8fdb846fe9ece1c49b494/numeric.c#L1608)
+```c
+static VALUE
+flo_next_float(VALUE vx)
+{
+    double x, y;
+    x = NUM2DBL(vx);
+    y = nextafter(x, INFINITY);
+    return DBL2NUM(y);
+}
+```
+---
+## BigDecimal
+```ruby
+require 'bigdecimal'
+(BigDecimal.new('10000000000.0') + BigDecimal.new('0.000000000000001')).to_s
+#=> "0.10000000000000000000000001E11"
+```
+
 ## String
 
 ```ruby
@@ -136,6 +196,19 @@ String.new # => ""
 'ruby'.capitalize #=> 'Ruby'
 'ruby'.reverse    #=> 'ybur'
 ```
+
+### Frozen literal string
+```ruby
+str = 'abcde'
+str.gsub!('c', 'b')
+```
+---
+```ruby
+# frozen_string_literal: true
+str = 'abcde'
+str.gsub!('c', 'b') # raises RuntimeError: can't modify frozen String
+```
+
 
 ## Array
 
@@ -212,6 +285,7 @@ a['мама'] #=> "mother"
 a = { key1: 'value1', key2: 'value2' }
 a[:key1] #=> "value1"
 a.fetch(:key3) #=> KeyError: key not found: :key3
+a.fetch(:key3, :default_value) #=> :default_value
 
 a.keys #=> [:key1, :key2]
 a.values #=> ["value1", "value2"]
@@ -414,7 +488,25 @@ split_apart(1, 2) #=> "first: 1, split: [], last: 2"
 split_apart(1, 2, 3) #=> "first: 1, split: [2], last: 3"
 split_apart(1, 2, 3, 4) #=> "first: 1, split: [2, 3], last: 4"
 ```
+---
+```ruby
+def foo(a, *b, **c)
+  [a, b, c]
+end
 
+foo 10, 20, 30, d: 40, e: 50 #=> [10, [20, 30], {:d=>40, :e=>50}]
+foo 10, d: 40, e: 50 #=> [10, [], {:d=>40, :e=>50}]
+```
+---
+```ruby
+def bar(a=1, b: 3)
+  [a, b]
+end
+
+bar #=> [1, 3]
+
+bar(2, b: 4) #=> [2, 4]
+```
 ## Methods and blocks
 
 ```ruby
