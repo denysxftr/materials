@@ -1,3 +1,4 @@
 # LEARNING MATERIALS
 
-[Introduction](#introduction)
+- [Introduction](#introduction)
+- [OOP in ruby](#oop_in_ruby)
