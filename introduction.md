@@ -349,11 +349,11 @@ false ? 't' : 'f' #=> "f"
 
 ## About false
 ```ruby
-true == true
-0 == true
-'' == true
-nil == false
-false == false
+true # true
+0 # true
+'' # true
+nil # false
+false # false
 ```
 ---
 ```ruby
@@ -370,19 +370,7 @@ end
 0/0 # raises ZeroDivisionError
 0/0.0 # => NaN (instance of class Float)
 NaN # => NameError: uninitialized constant NaN
-0/0.0 == false # => false
-0/0.0 == true # => false
-```
----
-```ruby
-a = 0/0.0
-if a
-  puts 'a is true'
-elsif !a
-  puts 'a is false'
-else
-  puts 'wat?'
-end
+!!(0/0.0) # => true
 ```
 
 ## or, and
