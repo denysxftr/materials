@@ -527,6 +527,12 @@ square.call(2) #=> 4
 bo = lambda { |param| "You called me with #{param}" }
 bo.call(99) #=> "You called me with 99"
 
+# Ruby 1.9 syntax
+# proc
+square = proc { |n| n**2 }
+# lambda
+square = ->(n) { n**2 }
+
 # difference
 def proc_return
   Proc.new { return "Proc.new" }.call
