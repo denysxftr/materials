@@ -456,11 +456,11 @@ with_return #=> 'one'
 ## Methods args
 ```ruby
 def many_args(arg1, *rest)
-  "arg1=#{arg1}  rest=#{rest.inspect}"
+  "arg1=#{arg1}  rest=#{rest}"
 end
 many_args(1,2,3,4,5) #=> "arg1=1  rest=[2, 3, 4, 5]"
 def split_apart(first, *split, last)
-  "first: #{first.inspect}, split: #{split.inspect}, last: #{last.inspect}"
+  "first: #{first}, split: #{split}, last: #{last}"
 end
 split_apart(1, 2) #=> "first: 1, split: [], last: 2"
 split_apart(1, 2, 3) #=> "first: 1, split: [2], last: 3"
