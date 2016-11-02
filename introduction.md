@@ -57,7 +57,7 @@ false.class #=> FalseClass
 
 ```ruby
 100.class #=> Fixnum
-10000000000000000000.class #=> Bignum
+10_000_000_000_000_000_000.class #=> Bignum
 100.0.class #=> Float
 
 Complex(2, 3) #=> (2+3i)
@@ -133,19 +133,19 @@ a **= 2 #=> 4
 ```
 ---
 ```ruby
-10000000000.0 + 0.00001 # => 10000000000.00001
-10000000000.0 + 0.0000001 # => 10000000000.0
+10_000_000_000.0 + 0.000_01 # => 10000000000.00001
+10_000_000_000.0 + 0.000_000_1 # => 10000000000.0
 ```
 ---
 ```ruby
-a = 1000000
-while a < 100000000000000000000 do
-  a += 0.000000001
+a = 1_000_000
+while a < 100_000_000_000_000_000_000 do
+  a += 0.000_000_001
 end
 ```
 ---
 ```ruby
-100000000.0.next_float # => 100000000.00000001
+100_000_000.0.next_float # => 100000000.00000001
 ```
 ---
 [ruby source](https://github.com/ruby/ruby/blob/59b089bd0902ee5de3b8fdb846fe9ece1c49b494/numeric.c#L1608)
@@ -163,7 +163,7 @@ flo_next_float(VALUE vx)
 ## BigDecimal
 ```ruby
 require 'bigdecimal'
-(BigDecimal.new('10000000000.0') + BigDecimal.new('0.000000000000001')).to_s
+(BigDecimal.new('10_000_000_000.0') + BigDecimal.new('0.000_000_000_000_001')).to_s
 #=> "0.10000000000000000000000001E11"
 ```
 
@@ -516,6 +516,12 @@ square.call(2) #=> 4
 # lambda
 bo = lambda { |param| "You called me with #{param}" }
 bo.call(99) #=> "You called me with 99"
+
+# Ruby 1.9 syntax
+# proc
+square = proc { |n| n**2 }
+# lambda
+square = ->(n) { n**2 }
 
 # difference
 def proc_return
