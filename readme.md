@@ -1,5 +1,3 @@
-# LEARNING MATERIALS
+# Kottans Kyiv Ruby course learning materials
 
-- [Introduction](#introduction)
-- [OOP in ruby](#oop_in_ruby)
-- [Rack](#rack)
+[Click here](https://zxftr45.github.io/materials/)

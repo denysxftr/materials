@@ -357,16 +357,6 @@ false # false
 ```
 ---
 ```ruby
-if a
-  # do this
-elsif !a
-  # do that
-else
-  # wat?
-end
-```
----
-```ruby
 0/0 # raises ZeroDivisionError
 0/0.0 # => Float::NAN (NaN)
 NaN # => NameError: uninitialized constant NaN

@@ -17,7 +17,7 @@ function render(file) {
 
 function getPage() {
   if (window.location.hash === '') {
-    render('readme.md');
+    render('index.md');
   } else {
     render(window.location.hash.replace('#', '') + '.md');
   }
