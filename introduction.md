@@ -523,7 +523,9 @@ square = proc { |n| n**2 }
 # lambda
 square = ->(n) { n**2 }
 
-# difference
+# differences
+
+# return
 def proc_return
   Proc.new { return "Proc.new" }.call
   return "proc_return return"
@@ -534,6 +536,14 @@ def lambda_return
 end
 proc_return #=> "Proc.new"
 lambda_return #=> "lambda_return return"
+
+# parameters
+proc = Proc.new { |a| puts a }
+lambda = ->(a) { puts a }
+proc.call   # => nil
+lambda.call # ArgumentError: wrong number of arguments (given 0, expected 1)
+proc.call(1, 2, 3) # will return first parameter(1) and forget others
+lambda.call(1, 2)  # ArgumentError: wrong number of arguments (given 2, expected 1)
 ```
 
 ## Call-by-reference
