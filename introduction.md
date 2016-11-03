@@ -105,6 +105,48 @@ a %= 3  #=> 2
 a **= 2 #=> 4
 ```
 
+### Parallel Assignment
+
+```ruby
+x, y, z = 1, 2, 3   # x=1; y=2; z=3
+x,y = y,x   # Parallel: swap the value of two variables
+x = y; y = x    # Sequential: both variables have same value
+x = 1, 2, 3    # x = [1,2,3]
+x, = 1, 2, 3   # x = 1; other values are discarded
+x, y, z = [1, 2, 3]   # Same as x,y,z = 1,2,3
+x = [1,2]   # x becomes [1,2]: this is not parallel assignment
+x, = [1,2]  # x becomes 1: the trailing comma makes it parallel
+```
+
+#####Different numbers of left-values and right-values
+
+```ruby
+x, y, z = 1, 2    # x=1; y=2; z=nil
+x, y = 1, 2, 3    # x=1; y=2; 3 is not assigned anywhere
+```
+
+#####The splat operator
+
+```ruby
+x, y, z = 1, *[2,3]   # Same as x,y,z = 1,2,3
+x,*y = 1, 2, 3    # x=1; y=[2,3]
+x,*y = 1, 2   # x=1; y=[2]
+x,*y = 1    # x=1; y=[]
+*x,y = 1, 2, 3    # x=[1,2]; y=3
+*x,y = 1, 2   # x=[1]; y=2
+*x,y = 1    # x=[]; y=1
+x, y, *z = 1, *[2,3,4]    # x=1; y=2; z=[3,4].
+```
+
+#####Parentheses in parallel assignment
+
+```ruby
+x,y,z = 1,[2,3]   # No parens: x=1;y=[2,3];z=nil
+x,(y,z) = 1,[2,3]   # Parens: x=1;y=2;z=3
+a,b,c,d = [1,[2,[3,4]]]   # No parens: a=1;b=[2,[3,4]];c=d=nil
+a,(b,(c,d)) = [1,[2,[3,4]]]   # Parens: a=1;b=2;c=3;d=4
+```
+
 ### Floating point numbers precision
 ```ruby
 10 / 3.0 # => 3.33333333333
