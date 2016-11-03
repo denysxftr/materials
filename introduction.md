@@ -118,14 +118,14 @@ x = [1,2]   # x becomes [1,2]: this is not parallel assignment
 x, = [1,2]  # x becomes 1: the trailing comma makes it parallel
 ```
 
-#####Different numbers of left-values and right-values
+### Different numbers of left-values and right-values
 
 ```ruby
 x, y, z = 1, 2    # x=1; y=2; z=nil
 x, y = 1, 2, 3    # x=1; y=2; 3 is not assigned anywhere
 ```
 
-#####The splat operator
+### The splat operator
 
 ```ruby
 x, y, z = 1, *[2,3]   # Same as x,y,z = 1,2,3
@@ -138,7 +138,7 @@ x,*y = 1    # x=1; y=[]
 x, y, *z = 1, *[2,3,4]    # x=1; y=2; z=[3,4].
 ```
 
-#####Parentheses in parallel assignment
+### Parentheses in parallel assignment
 
 ```ruby
 x,y,z = 1,[2,3]   # No parens: x=1;y=[2,3];z=nil
