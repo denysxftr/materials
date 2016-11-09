@@ -177,7 +177,7 @@ class Config
   end
 
   def method_missing(name, *args)
-    self.singleton_class.send(:define_method, name) do |value|
+    self.singleton_class.send(:define_method, name) do |value=nil|
       return instance_variable_get("@#{name}") unless value
       instance_variable_set("@#{name}", value.size == 1 ? value[0] : value)
     end
