@@ -182,6 +182,7 @@ snake = Snake.new(1) # => #<Snake:0x000000020800c8 @length=1>
 other_snake = Snake.new(1) # => #<Snake:0x00000001e80ae8 @length=1>
 snake == other_snake # => false
 ```
+
 ---
 ```ruby
 class Snake
@@ -203,6 +204,26 @@ end
 snake = Snake.new(1)
 other_snake = Snake.new(1)
 snake == other_snake # => true
+```
+---
+## Comparation usng Comparable module
+```ruby
+class Snake
+  include Comparable
+
+  attr_accessor :length
+
+  def <=>(other_snake)
+    self.length <=> other_snake.length
+  end
+end
+
+-> snake1 = Snake.new #=> #<Snake:0x00000001e5b6a8>
+-> snake2 = Snake.new #=> #<Snake:0x00000001e43170>
+-> snake1.length = 5 #=> 5
+-> snake2.length = 10 #=> 10
+-> snake1 < snake2 #=> true
+-> snake1 == snake2 #=> false
 ```
 
 ## Self
