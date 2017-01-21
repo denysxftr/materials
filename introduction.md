@@ -100,7 +100,7 @@ a = 5   #=> 5
 a += 1  #=> 6
 a -= 1   #=> 5
 a *= 2  #=> 10
-a /= 2  #=> 5
+a /= 2  #=> 2
 a %= 3  #=> 2
 a **= 2 #=> 4
 ```
@@ -545,6 +545,21 @@ end
 try #=> "no block"
 try { "hello" } #=> "hello"
 try do "hello" end #=> "hello"
+
+#Difference it the block calls
+array = [1,2,3]
+#=> [1, 2, 3]
+array.map {|n| n * 10 }
+#=> [10, 20, 30]
+array.map do |n| n * 10 end
+#=> [10, 20, 30]
+puts array.map {|n| n * 10 }
+10
+20
+30
+#=> nil
+puts array.map do |n| n * 10 end
+#=>#<Enumerable::Enumerator:0x3ab664>
 ```
 
 ## Proc and lambda
